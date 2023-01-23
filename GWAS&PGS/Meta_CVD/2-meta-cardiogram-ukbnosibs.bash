@@ -1,0 +1,64 @@
+#!/bin/bash
+#SBATCH -t 1:00:00
+#SBATCH -p short
+
+echo
+echo "Script executed:"
+date
+echo
+
+cd /lustre5/0/geighei/projects/CVD/3_METAL/OUTPUT
+
+/lustre5/0/geighei/tools/metal/generic-metal/metal << EOF
+
+
+##General parameters
+SEPARATOR TAB
+COLUMNCOUNTING LENIENT
+MARKER rsid
+ALLELE EFFECT_ALLELE OTHER_ALLELE
+EFFECT BETA
+STDERR SE
+PVALUE PVAL
+WEIGHT N
+USESTRAND OFF
+FREQLABEL EAF
+AVERAGEFREQ ON
+MINMAXFREQ ON
+GENOMICCONTROL OFF
+PROCESS /lustre5/0/geighei/projects/CVD/3_METAL/INPUT/GWAS_CAD_UKBnosibsrels_ldscGC.txt
+
+##Specify cohort files as input
+SEPARATOR TAB
+COLUMNCOUNTING LENIENT
+MARKER rsid
+ALLELE EFFECT_ALLELE OTHER_ALLELE
+EFFECT BETA
+STDERR SE
+PVALUE PVAL
+WEIGHT Neffmax
+SCHEME SAMPLESIZE
+USESTRAND OFF
+FREQLABEL EAF
+AVERAGEFREQ ON
+MINMAXFREQ ON
+GENOMICCONTROL OFF
+PROCESS /lustre5/0/geighei/projects/CVD/3_METAL/INPUT/CLEANED.cad.add.160614.website.N.txt.gz
+
+##Specify output file
+OUTFILE GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels .tbl
+
+
+##Start Meta-analysis
+ANALYZE HETEROGENEITY
+
+
+
+##Exit metal
+QUIT
+
+EOF
+
+echo "Script finished at:"
+date
+
