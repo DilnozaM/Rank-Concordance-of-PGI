@@ -12,13 +12,12 @@ set more off
 ********************************************************************************
 
 * Loading full phenotype data 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\ExtractedData.dta"
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
+use "path\Analysis\Input\ExtractedData.dta"
+merge 1:1 ID using "path\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
 drop if consent>1
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
+merge 1:1 ID using "path\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
 drop if consent2>1
-*merge 1:1 ID using "C:\Users\68484dmu\OneDrive - Erasmus University Rotterdam\Desktop\Projects\NHS & Genes\Data\UKB\ExtractedData.dta", gen(EA) keepusing(c_quals_*)
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\original_EA.dta", gen(EA2)
+merge 1:1 ID using "path\Analysis\Input\original_EA.dta", gen(EA2)
 keep if EA2==3
 
 
@@ -52,7 +51,7 @@ keep ID EA_new EduYears sex
 * What do we do with non-europeans? also assign -8 for education?
 
 * Merging with the relatedness file 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta"
+merge 1:1 ID using "\Siblings\Output\Relatedness_to_siblings_UKB.dta"
 
 /*
 
@@ -87,7 +86,7 @@ drop if relationship!=1
 *(461,006 observations deleted)
 
 * Recoding the phenotype for the list with bad qc: see do-file do_file_select_sample_qc.do 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
+merge 1:1 ID using "path\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
 
 /*
 
@@ -116,14 +115,14 @@ drop if EA_new==.
 keep ID EA_new 
 
 * Saving the dta file 
-save "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_pheno_qc_sibs.dta", replace 
+save "path\Analysis\Output\UKB_EA_new_pheno_qc_sibs.dta", replace 
 
 ********************************************************************************
 *** RESIDUALIZED PHENOTYPE 
 ********************************************************************************
 *** Start here with the split sample scores for gwas 
 clear all 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\quality_control_stata_v2.dta", clear
+use "path\Analysis\Input\quality_control_stata_v2.dta", clear
 
 /* Check if the right qc file, should start with sample_0
  ID	id_ukb
@@ -132,13 +131,13 @@ use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Gen
 
 */
 * Remove those who recently withdrew consent
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
+merge 1:1 ID using "path\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
 drop if _mergeconsent>1
 * remove 98 individuals
 merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
 drop if consent2>1
 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
+merge 1:1 ID using "path\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
 /*
 
  Result                           # of obs.
@@ -151,7 +150,7 @@ merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\B
     -----------------------------------------
 */
 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_pheno_qc_sibs.dta", gen(_mergeEA)
+merge 1:1 ID using "path\Analysis\Output\UKB_EA_new_pheno_qc_sibs.dta", gen(_mergeEA)
 /*
     Result                           # of obs.
     -----------------------------------------
@@ -197,7 +196,7 @@ export delimited ID ID EA_resid using "C:\Users\68484dmu\Dropbox (Erasmus Univer
 
 * Select one random member from the sib pair 
 * add famid variable 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_merge2)
+merge 1:1 ID using "Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_merge2)
 
 keep if _merge2==3
 egen N_famid=count(famid), by(famid)
@@ -220,9 +219,9 @@ count
 *18,723
 
 
-export delimited id_ukb id_ukb using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames
+export delimited id_ukb id_ukb using "\Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames
 
-export delimited ID ID EA__new_resid_1 using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_onesib.txt", delimiter(tab) replace novarnames
+export delimited ID ID EA__new_resid_1 using "Analysis\Output\UKB_EA_new_resid_pheno_onesib.txt", delimiter(tab) replace novarnames
 
 * GWAS covariates should be i.birthyear, sex, i.birthyear*sex, i.Batch, pc1-40
 * qcovar file should contain all continuous variables
@@ -234,20 +233,20 @@ export delimited ID ID EA__new_resid_1 using "C:\Users\68484dmu\Dropbox (Erasmus
 ********************************************************************************
 
 clear all 
-import delimited "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\ukb_hm3_snp_sqc_consent_allchr.fam", delimiter(space, collapse)  
+import delimited "Analysis\Input\ukb_hm3_snp_sqc_consent_allchr.fam", delimiter(space, collapse)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 rename v1 plinkID
 rename v2 id_ukb
 keep plinkID id_ukb
-save "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\UKB_genetic_plinkIDs_UKBIDs.dta", replace 
+save "Analysis\Input\UKB_genetic_plinkIDs_UKBIDs.dta", replace 
 
 clear all 
-import delimited "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_list_sib.txt"
+import delimited "Analysis\Output\UKB_list_sib.txt"
 rename v1 id_ukb
-merge 1:1 id_ukb using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\UKB_genetic_plinkIDs_UKBIDs.dta", gen(_plinkID)
+merge 1:1 id_ukb using "Analysis\Input\UKB_genetic_plinkIDs_UKBIDs.dta", gen(_plinkID)
 keep if _plinkID==3
 keep plinkID id_ukb
 order plinkID id_ukb
 sort plinkID
-export delimited plinkID id_ukb using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames
+export delimited plinkID id_ukb using "Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames

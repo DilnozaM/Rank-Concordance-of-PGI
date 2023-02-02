@@ -1,7 +1,7 @@
 
 set seed 543
 
-import delimited "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\PGS ranking\Analysis\Input\ukb_hm3_snp_sqc_consent_allchr.fam", delimiter(space, collapse) clear
+import delimited "PGS ranking\Analysis\Input\ukb_hm3_snp_sqc_consent_allchr.fam", delimiter(space, collapse) clear
 
 duplicates tag v1, gen(dup_v1)
 tab dup_v1
@@ -11,7 +11,7 @@ tab dup_v2
 *no duplicates 
 
 rename v2 id_ukb
-merge 1:1 id_ukb using "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\PGS ranking\Analysis\Input\Input\kinship_ukb.dta"
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\Input\kinship_ukb.dta"
 //i want people for who we know the kinship so will exclude the non merged
 
 /*   
@@ -44,4 +44,4 @@ gen draft = _n
 keep if draft <= 30000
 
 //you are left with 30000 individuals selected randomly
-export delimited v1 id_ukb using "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\PGS ranking\Analysis\Input\ID_fam_ukb_reference_30k.txt", delimiter(tab) novarnames replace
+export delimited v1 id_ukb using "PGS ranking\Analysis\Input\ID_fam_ukb_reference_30k.txt", delimiter(tab) novarnames replace

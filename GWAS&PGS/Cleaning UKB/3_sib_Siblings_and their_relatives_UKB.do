@@ -12,13 +12,13 @@ capture log close
 * NOTE: All datasets are generated based on the R Code "Siblings_updated_tresholds" and then converted to .dta format 
 
 * Opening the RL_with_relid.dta, the output file in dta form from the R code on identifying relationships
-use "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\UKB documentation\Output\RL_with_relid_UKB.dta" 
+use "Siblings\UKB documentation\Output\RL_with_relid_UKB.dta" 
 
 * Merging the above file with the Siblinns' file will help identify all the invididual siblings who have 2nd and 3rd degree relatives 
-merge 1:1 ID using "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\UKB documentation\Output\FS_with_famid_UKB.dta"
+merge 1:1 ID using "Siblings\UKB documentation\Output\FS_with_famid_UKB.dta"
 
 * Mergin in the Parent_child file 
-merge 1:1 ID using "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\UKB documentation\Output\PC_with_pcid_UKB.dta", gen(_merge1)
+merge 1:1 ID using "Siblings\UKB documentation\Output\PC_with_pcid_UKB.dta", gen(_merge1)
 
 *Some individuals have a negative personal ID
 drop if ID<0 /* Dropping 17 more individuals */
@@ -98,4 +98,4 @@ label values pc_siblings pc_siblings
 ********************************************************************************
 
 keep ID relid famid pcid relationship FS RL PC rel_siblings pc_siblings
-save "Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta", replace 
+save "Siblings\Output\Relatedness_to_siblings_UKB.dta", replace 

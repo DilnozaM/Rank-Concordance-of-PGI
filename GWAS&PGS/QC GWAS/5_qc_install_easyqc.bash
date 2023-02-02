@@ -1,7 +1,7 @@
 # installing easyqc and dependencies on cartesius #
-# first, easyqc and its dependency cairo were donwloaded into the tools folder,  "/lustre5/0/geighei/tools/easyqc" #
+# first, easyqc and its dependency cairo were donwloaded into the tools folder,  "/path/tools/easyqc" #
 
-cd /lustre5/0/geighei/tools/easyqc
+cd /path/tools/easyqc
 
 module load 2019
 module load R

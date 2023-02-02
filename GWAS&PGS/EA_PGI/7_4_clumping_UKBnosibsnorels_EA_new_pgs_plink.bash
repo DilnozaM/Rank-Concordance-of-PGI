@@ -12,7 +12,7 @@ echo "New EA"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Code
+cd path/projects/UKB_PGS_plink/EA/Code
 
 #load plink - do we need to check for python here? 
 module load 2019 
@@ -20,7 +20,7 @@ module load Python/3.6.6-foss-2018b
 
 
 # Identifying the columns to include into the construction of the plink score 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
 
 #1cptid          2rsID           3CHR    4POS        5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8MAC    9BETA           10SE            11PVAL          12Z                  13INFO          14N     15N_eff
 #10:100000625    rs7899632       10      100000625       A             G               0.566952        337300  0.00886916      0.0112481       0.430401        0.78850294716441     0.999653        389419  389216
@@ -37,28 +37,28 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans
 
 #Clump the scores using the PRcise default thresholds 
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --clump /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt \
+      --bfile path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --clump path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt \
       --clump-p1 1 \
       --clump-kb 250 \
       --clump-r2 0.10 \
       --clump-p2 1 \
       --clump-snp-field rsID \
       --clump-field PVAL \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels
+      --out path/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels
 
 
 #Now make a list of the clumped SNPs
-head /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels.clumped
+head path/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels.clumped
 
 
-awk '{ print $3 }' /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels.clumped > /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
+awk '{ print $3 }' path/projects/UKB_PGS_plink/EA/Output/EA_new_clumped_UKB_noukbsibrels.clumped > path/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
 
 #Remove the column name "SNP"
-sed -i '1d' /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
+sed -i '1d' path/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
 
 #count the number of SNPs included
-grep -c rs /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
+grep -c rs path/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt
 #112892 
 #Is this a normal thing? NB: the job was killed, see the log file in output folder
 
@@ -66,7 +66,7 @@ grep -c rs /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_list_clump
 #Need to choose for the score flag later: marker name, reference allele, weight (ld or gwas beta) (Source: Mills et al, 2020)
 #using the ld_weight files since beta are already calculated there, otherwise use the same sumstats as in clumping 
 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
 
 #1cptid          2rsID           3CHR    4POS        5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8MAC    9BETA           10SE            11PVAL          12Z                  13INFO          14N     15N_eff
 #10:100000625    rs7899632       10      100000625       A             G               0.566952        337300  0.00886916      0.0112481       0.430401        0.78850294716441     0.999653        389419  389216
@@ -80,10 +80,10 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans
 #10:10000360     rs7919605       10      10000360        G             A               0.998052        1517    -0.0396874      0.140408        0.777439        -0.282657683322888   0.811555        389419  315432
 
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --extract /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt \
-      --score /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt header sum 2 5 9 \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/PGS_plink_EA_new_ukb_nosibssibrels_clumped
+      --bfile path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --extract path/projects/UKB_PGS_plink/EA/Output/EA_new_list_clumped_SNPs_UKB_noukbsibrels.txt \
+      --score path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt header sum 2 5 9 \
+      --out path/projects/UKB_PGS_plink/EA/Output/PGS_plink_EA_new_ukb_nosibssibrels_clumped
 
 echo "Script finished"
 date 

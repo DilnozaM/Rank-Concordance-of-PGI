@@ -9,7 +9,7 @@ echo "CVD Meta Cardiogram & UKB nosibrels"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/CVD/CODE
+cd /path/projects/UKB_LDpred/CVD/CODE
 
 #load python
 module load 2019 
@@ -26,14 +26,14 @@ pip install --user h5py
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
 
 #Unzip the sumstats
-gunzip -c /lustre5/0/geighei/projects/CVD/3_METAL/OUTPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt.gz > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
+gunzip -c /path/projects/CVD/3_METAL/OUTPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt.gz > /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
 
 
 #Organize sum stats 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
 
 #1CHR    2POS            3rsid      4EFFECT_ALLELE   5OTHER_ALLELE    6EAF    7EAF_SE 8MIN_EAF 9MAX_EAF 10N             11Z     12P-value 13Direction     14HetISq  15HetChiSq      16HetDf 17HetPVal
 #6       130840091       rs2326918       a                g           0.8457  0.0011  0.8433   0.8462   474257.00       0.103   0.918     -+              14.2      1.166           1       0.2802
@@ -68,12 +68,12 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_U
 #effalt = 1*($11/sqrt($10*2*$6*(1-$6)))
 awk -F" " 'BEGIN{OFS="\t"; print "chr", "pos", "ref", "alt", "reffrq", "info", "rs", "pval", "effalt"} 
                  {if(NR>1) {print "chr"$1, $2, $4, $5, $6, "NaN", $3, $12, 1*($11/sqrt($10*2*$6*(1-$6)))}}' OFS="\t" \
-                  /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt
+                  /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt > /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt
 
 #Formula for beta=z-score/sqrt(N*2*MAF*(1-MAF))
 
 echo "head sum stats"
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt
 #chr	pos	       ref	alt	reffrq	info	rs	        pval	effalt
 #chr6	130840091	a	g	0.8457	NaN	rs2326918	0.918	0.000292768
 #chr3	104998275	a	c	0.9948	NaN	rs112634005	0.01422	0.038465
@@ -86,7 +86,7 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_U
 #chr7	145771806	t	c	0.8588	NaN	rs6977693	0.3739	0.0026213
 
 echo "tail sum stats"
-tail /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt	  
+tail /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels_ldpred_format.txt	  
 #chr7	107988681	a	t	0.8041	NaN	rs117878361	0.6814	  -0.00106328
 #chr15	50176748	a	g	0.9911	NaN	rs569284138	0.3498	  -0.0112324
 #chr5	37232736	a	c	0.9948	NaN	rs113147370	0.5782	  -0.00872209

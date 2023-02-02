@@ -3,16 +3,8 @@
 * July 2020
 * Last updated Jan 2023
 
-* Add your username 
 
-if c(username)=="68484dmu" {
-	cd "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\"
-}
-else {
-	*cd "C:\Users\Hans\Dropbox (Erasmus Universiteit Rotterdam)\"
-	*cd "C:\Users\Niels\Dropbox (Erasmus Universiteit Rotterdam)\"
-	*cd "C:\Users\ecsmvhkv\Dropbox\"
-}
+cd "path"
 
 
 *** Rule for naming the scores: phenotype_sample_method
@@ -32,7 +24,7 @@ else {
 ********************************************************************************
 
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -44,13 +36,13 @@ gen cvd_cardio_ukb_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.dta", replace 
 
 ********************************************************************************
 *** Sumstats CVD2: CARDIOGRAM, ldpred 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -62,14 +54,14 @@ gen cvd_cardio_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.dta", replace 
 
 
 ********************************************************************************
 *** Sumstats CVD3: UKB nosibrels, ldpred 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -81,13 +73,13 @@ gen cvd_ukb_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.dta", replace 
 
 ********************************************************************************
 *** Sumstats CVD4: META CARDIOGRAM + UKB nosibrels, clump
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -99,13 +91,13 @@ gen cvd_cardio_ukb_clump=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.dta", replace 
 
 ********************************************************************************
 *** Sumstats CVD5: CARDIOGRAM, clump
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -117,14 +109,14 @@ gen cvd_cardio_clump=scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.dta", replace 
 
 ********************************************************************************
 *** Sumstats CVD6: UKB nosibrels, clump
 ********************************************************************************
 
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -136,7 +128,7 @@ gen cvd_ukb_clump=scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.dta", replace 
 }
 
 
@@ -147,7 +139,7 @@ save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.dta"
 *** Sumstats EA1: NEW UKB+23andme, LDPRED
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -159,13 +151,13 @@ gen ea_new_23me_ukb_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.dta", replace 
 
 ********************************************************************************
 *** Sumstats EA2: 23andme LDpred 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.profile", delimiter(space, collapse) varnames(1)   
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.profile", delimiter(space, collapse) varnames(1)   
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 
@@ -178,14 +170,14 @@ gen ea_23me_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.dta", replace 
 
 
 ********************************************************************************
 *** Sumstats EA3: NEW UKB LDPRED 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -197,14 +189,14 @@ gen ea_new_ukb_ld=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.dta", replace 
 
 
 ********************************************************************************
 *** Sumstats EA4: NEW UKB+23andme, Clump 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -216,13 +208,13 @@ gen ea_new_ukb_23me_clump=(-1)*scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.dta", replace 
 
 ********************************************************************************
 *** Sumstats EA5: 23andme, Clumped
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 
@@ -235,14 +227,14 @@ gen ea_23me_clump=scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.dta", replace 
 
 
 ********************************************************************************
 *** Sumstats EA6: NEW UKB, Clump 
 ********************************************************************************
 clear all 
-import delimited "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.profile", delimiter(space, collapse) varnames(1)  
+import delimited "PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.profile", delimiter(space, collapse) varnames(1)  
 * 446,339 passed QC, european, and gave consent for the data 
 sum 
 * Check if the dataset starts with the correct UKB id 
@@ -254,7 +246,7 @@ gen ea_new_ukb_clump=scoresum
 drop scoresum
 rename iid id_ukb
 
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.dta", replace 
 }
 
 {
@@ -263,24 +255,24 @@ save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssib
 ********************************************************************************
 clear all
 
-use "GEIGHEI\projects\PGS ranking\Analysis\Input\ID_Norface_ID_UKB_key.dta"
+use "PGS ranking\Analysis\Input\ID_Norface_ID_UKB_key.dta"
 
 *** CVD
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_ukb_CVD_UKBnosibsrels.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_cardiogram_CVD.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_meta_CVD_CARDIOGRAM_UKBnosibsrels.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_CVD_UKB_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_cvd_cardiogram_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_cvd_meta_ukb_cardiogram_clumped.dta", nogen
 
 
 *** EA
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.dta", nogen
-merge 1:1 id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_meta_23andme_UKB_EA_new_nosibsrel_p1.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_EA_23andme_p1.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_ldpred_UKB_EA_new_nosibsrel_p1.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_EA_new_meta_23andme_ukb_nosibssibrels_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_EA_23andme_clumped.dta", nogen
+merge 1:1 id_ukb using "PGS ranking\Analysis\Input\PGS_plink_EA_new_ukb_nosibssibrels_clumped.dta", nogen
 
 }
 
@@ -326,22 +318,22 @@ br if dup>0
 drop if ID<0
 drop if ID==.
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\ExtractedData.dta", gen(_mergeExtDt)
+merge 1:1 ID using "PGS ranking\Analysis\Input\ExtractedData.dta", gen(_mergeExtDt)
 keep if _mergeExtDt==3
 
 // Merge with PCs
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
+merge 1:1 ID using "PGS ranking\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
 keep if _mergePC==3
 
 // Merge sibling identifiers
 * Need to keep only sibs and possible their relatives to test the predictive power of the score, can't apply to everyone, will overfit 
-merge 1:1 ID using "GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_mergeRL)
+merge 1:1 ID using "Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_mergeRL)
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
+merge 1:1 ID using "PGS ranking\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
 drop if consent>1
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
+merge 1:1 ID using "PGS ranking\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
 drop if consent2>1
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\original_EA.dta", gen(EA2)
+merge 1:1 ID using "PGS ranking\Analysis\Input\original_EA.dta", gen(EA2)
 keep if EA2==3
 
 
@@ -391,7 +383,7 @@ tab relationship
 */	
 
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\IHD_icd_phenotype.dta", nogen
+merge 1:1 ID using "PGS ranking\Analysis\Input\IHD_icd_phenotype.dta", nogen
 ********************************************************************************
 *** Saving the complete dataset 
 ********************************************************************************
@@ -403,7 +395,7 @@ keep ID    EA_new IHD_icd ///
 		   cvd_cardio_ukb_clump   cvd_cardio_clump  cvd_ukb_clump     ///
            YoB MoB sex e_PC_1-e_PC_40 famid relationship 
 		   
-save "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd_bmi_dbp.dta", replace 
+save "PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd_bmi_dbp.dta", replace 
 
 }
 

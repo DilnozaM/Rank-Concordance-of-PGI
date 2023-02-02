@@ -7,14 +7,14 @@ echo "Script executed:"
 date
 echo
 
-cd /lustre5/0/geighei/projects/CVD/3_METAL/INPUT
-cp /lustre5/0/geighei/projects/CVD/1_QC/CARDIOGRAM/OUTPUT/CVD/CLEANED.cad.add.160614.website.gz .
+cd path/projects/CVD/3_METAL/INPUT
+cp path/projects/CVD/1_QC/CARDIOGRAM/OUTPUT/CVD/CLEANED.cad.add.160614.website.gz .
 
 
 
 ### HEIGHT ###
 
-/lustre5/0/geighei/tools/metal/generic-metal/metal << EOF
+path/tools/metal/generic-metal/metal << EOF
 
 
 ##General parameters
@@ -37,7 +37,7 @@ CUSTOMVARIABLE EAF
 LABEL EAF as EAF
 
 ##Specify cohort files as input
-PROCESS /lustre5/0/geighei/projects/UKB_QC/OUTPUT/UKB/CVD/CLEANED.ukb_CVD_fastgwa_mlm_excl_sibs_sibrels_resid.fastGWA.gz
+PROCESS path/projects/UKB_QC/OUTPUT/UKB/CVD/CLEANED.ukb_CVD_fastgwa_mlm_excl_sibs_sibrels_resid.fastGWA.gz
 OUTFILE GWAS_CAD_UKBnosibsrels_ldscGC .tbl
 ANALYZE HETEROGENEITY
 # ^ so that Z etc. is retained in output

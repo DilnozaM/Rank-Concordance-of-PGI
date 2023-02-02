@@ -15,13 +15,13 @@ set more off
 * Change to the relevant paths 
 
 * Loading full phenotype data 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\ExtractedData.dta"
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
+use "path\Analysis\Input\ExtractedData.dta"
+merge 1:1 ID using "path\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(consent)
 drop if consent>1
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
+merge 1:1 ID using "path\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
 drop if consent2>1
 *merge 1:1 ID using "C:\Users\68484dmu\OneDrive - Erasmus University Rotterdam\Desktop\Projects\NHS & Genes\Data\UKB\ExtractedData.dta", gen(EA) keepusing(c_quals_*)
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\original_EA.dta", gen(EA2)
+merge 1:1 ID using "path\Analysis\Input\original_EA.dta", gen(EA2)
 keep if EA2==3
 
 
@@ -54,7 +54,7 @@ keep ID EA_new sex
 * What do we do with non-europeans? also assign -8 for education?
 
 * Merging with the relatedness file 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta"
+merge 1:1 ID using "path\Siblings\Output\Relatedness_to_siblings_UKB.dta"
 
 
 /*
@@ -90,7 +90,7 @@ drop if relationship>0 & relationship!=.
 * (56,450 real changes made)
 
 * Recoding the phenotype for the list with bad qc: see do-file do_file_select_sample_qc.do 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
+merge 1:1 ID using "path\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
 
 /*
      Result                           # of obs.
@@ -123,14 +123,14 @@ keep ID EA_new
 *export delimited ID ID EA using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_pheno_qc_nosibrels.txt", delimiter(tab) replace novarnames
 
 * Saving the dta file 
-save "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_pheno_qc_nosibrels.dta", replace 
+save "path\Analysis\Output\UKB_EA_new_pheno_qc_nosibrels.dta", replace 
 
 ********************************************************************************
 *** RESIDUALIZED PHENOTYPE 
 ********************************************************************************
 *** Start here with the split sample scores for gwas 
 clear all 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\quality_control_stata_v2.dta", clear
+use "path\Analysis\Input\quality_control_stata_v2.dta", clear
 *rename id_norface ID 
 
 /* Check if the right qc file, should start with sample_0
@@ -140,14 +140,14 @@ use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Gen
 */
 
 * Remove those who recently withdrew consent
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
+merge 1:1 ID using "path\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
 drop if _mergeconsent>1
 * remove 98 individuals
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
+merge 1:1 ID using "path\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(consent2)
 drop if consent2>1
 
 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
+merge 1:1 ID using "path\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
 /*
 
     Result                           # of obs.
@@ -161,7 +161,7 @@ merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\B
 
 */
 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_pheno_qc_nosibrels.dta", gen(_mergeEA)
+merge 1:1 ID using "path\Analysis\Output\UKB_EA_new_pheno_qc_nosibrels.dta", gen(_mergeEA)
 /*
     Result                           # of obs.
     -----------------------------------------
@@ -198,7 +198,7 @@ inspect EA_resid_new
 drop if EA_resid_new==.
 * (0 observations deleted) 
 
-export delimited ID ID EA_resid_new using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_resid_new_pheno_qc_nosibrels.txt", delimiter(tab) replace novarnames
+export delimited ID ID EA_resid_new using "path\Analysis\Output\UKB_EA_resid_new_pheno_qc_nosibrels.txt", delimiter(tab) replace novarnames
 
 
 ********************************************************************************
@@ -206,7 +206,7 @@ export delimited ID ID EA_resid_new using "C:\Users\68484dmu\Dropbox (Erasmus Un
 ********************************************************************************
 
 gen id_norface = ID
-merge 1:1 id_norface using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\complete_sample_qc_info_ukb_v2.dta", gen(_sex)
+merge 1:1 id_norface using "path\Analysis\Input\complete_sample_qc_info_ukb_v2.dta", gen(_sex)
 keep if _sex == 3
 
 corr sex submittedgender inferredgender
@@ -219,7 +219,7 @@ corr sex submittedgender inferredgender
 * Pick one individual randomly from relid id to be included in the gwas 
 
 * Merge again for relationship identifiers 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta", nogen
+merge 1:1 ID using "path\Siblings\Output\Relatedness_to_siblings_UKB.dta", nogen
 drop if EA_new==.
 count 
 * before the cleaning:   389,419 individs
@@ -272,9 +272,9 @@ sum EA_resid_new_0 if EA_resid_new_0!=-9
 *export delimited ID ID EA_resid using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_resid_pheno_nosibrels.txt", delimiter(tab) replace novarnames
 
 * Saving the dta file 
-save "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", replace 
+save "path\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", replace 
 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", clear
+use "path\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", clear
 * Saving the splitsample 
 inspect EA_resid_new_0
 keep if EA_resid_new_0!=-9
@@ -283,10 +283,10 @@ count
 *170,005
 sum EA_resid_new_0
 
-export delimited ID ID EA_resid_new_0 using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_nopc_norel_0.txt", delimiter(tab) replace novarnames
+export delimited ID ID EA_resid_new_0 using "path\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_nopc_norel_0.txt", delimiter(tab) replace novarnames
 
  
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", clear
+use "path\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_with_splitsample.dta", clear
 inspect EA_resid_new_1
 keep if EA_resid_new_1!=-9
 *(171,265 observations deleted)
@@ -294,7 +294,7 @@ keep if EA_resid_new_1!=-9
 count
 * 171,264
 sum EA_resid_new_1
-export delimited ID ID EA_resid_new_1 using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_nopc_norel_1.txt", delimiter(tab) replace novarnames
+export delimited ID ID EA_resid_new_1 using "path\Analysis\Output\UKB_EA_new_resid_pheno_nosibrels_nopc_norel_1.txt", delimiter(tab) replace novarnames
 
 
 

@@ -6,14 +6,14 @@
 # Preliminaries
 library(data.table)
 library(reshape2)
-setwd("//campus.eur.nl/users/home/68484dmu/Desktop/Projects/NHS & Genes/Data/Sibling & parent identifiers UKB")
+setwd("//path/Data/Sibling & parent identifiers UKB")
 
-outfolder <- ("//campus.eur.nl/users/home/68484dmu/Desktop/Projects/NHS & Genes/Data/Sibling & parent identifiers UKB")
+outfolder <- ("//path/Data/Sibling & parent identifiers UKB")
 
 # Load relatedness file from UKB
 # header:
 # ID1 ID2 HetHet IBS0 Kinship
-d <- fread("//campus.eur.nl/users/home/68484dmu/Desktop/Projects/NHS & Genes/Data/Sibling & parent identifiers UKB/ukb41382_rel_s488302.dat")	
+d <- fread("//path/Data/Sibling & parent identifiers UKB/ukb41382_rel_s488302.dat")	
 
 #-------------------------------------#
 # Code various types of sibling pairs		

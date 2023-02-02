@@ -15,8 +15,8 @@ file=$3 # file name (just the file name, not a full path)
 standdev=$4
 corrfac=1.4 # set corrfac to fixed value
 
-path=/projects/0/geighei/projects
-input=/lustre5/0/geighei/projects/UKB_QC/INPUT/${file}
+path=/path/projects
+input=/path/projects/UKB_QC/INPUT/${file}
 NOW=$(date +"%m%d%Y")
 
 
@@ -58,7 +58,7 @@ echo
 echo "first modify easyqc script for ${cohort}, input file ${input}, pheno ${pheno}"
 
 cohortpheno=${cohort}_${pheno}
-outputpath="/projects/0/geighei/projects/UKB_QC/OUTPUT/${cohort}/${pheno}"
+outputpath="/path/projects/UKB_QC/OUTPUT/${cohort}/${pheno}"
 
 #integrate standdev from R file (future)
 #standdev=$(cat /lustre5/0/geighei/projects/UKB_QC/INPUT/${cohort}_${pheno}_standdev.txt )
@@ -71,7 +71,7 @@ then
 	echo
 else
 	echo "make umbrella directory ${outputpath}"
-	mkdir /projects/0/geighei/projects/UKB_QC/OUTPUT/${cohort}/${pheno}
+	mkdir /path/projects/UKB_QC/OUTPUT/${cohort}/${pheno}
 	echo
 fi
 

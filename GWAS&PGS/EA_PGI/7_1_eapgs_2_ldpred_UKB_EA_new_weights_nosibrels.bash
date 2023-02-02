@@ -13,7 +13,7 @@ echo "EA NEW"
 date
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/EA_new/CODE
+cd path/projects/UKB_LDpred/EA_new/CODE
 
 #load python
 module load 2019 
@@ -30,14 +30,14 @@ pip3 install --user h5py
 
 
 #Number of Observations, just use the max number of observations per SNP
-size=$(awk '{ printf "%1.f\n",$15}' /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt | sort -rn | head -1 )
+size=$(awk '{ printf "%1.f\n",$15}' path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt | sort -rn | head -1 )
 samplesize=${size%.00}
 
 echo "sample size is ${samplesize}"
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
+python path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 
 #LD with different priors 
@@ -45,13 +45,13 @@ python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 #ld = 1065146/3000  = 355
 
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
---cf=/lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/LD_pred_coord_EA_new_UKB_nosibsrels \
+python path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
+--cf=path/projects/UKB_LDpred/EA_new/INPUT/LD_pred_coord_EA_new_UKB_nosibsrels \
 --ldr=355 \
---ldf=/lustre5/0/geighei/projects/UKB_LDpred/EA_new/OUTPUT/EA_new_snp_ld_UKB_nosibrels \
+--ldf=path/projects/UKB_LDpred/EA_new/OUTPUT/EA_new_snp_ld_UKB_nosibrels \
 --N=${samplesize} \
 --f=1 \
---out=/lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/LD_pred_w_EA_new_UKB_nosibrels
+--out=path/projects/UKB_LDpred/EA_new/INPUT/LD_pred_w_EA_new_UKB_nosibrels
 
 echo "Script finished:"
 date

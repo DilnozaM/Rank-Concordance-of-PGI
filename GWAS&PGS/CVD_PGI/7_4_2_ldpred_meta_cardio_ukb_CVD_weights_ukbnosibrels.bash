@@ -13,7 +13,7 @@ echo "CVD UKB"
 date
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/CVD/CODE
+cd /path/projects/UKB_LDpred/CVD/CODE
 
 #load python
 module load 2019 
@@ -30,7 +30,7 @@ pip3 install --user h5py
 
 
 #Number of Observations rounded, just use the max number of observations per SNP
-size=$(awk '{ printf "%1.f\n",$10}' /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt | sort -rn | head -1 )
+size=$(awk '{ printf "%1.f\n",$10}' /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt | sort -rn | head -1 )
 samplesize=${size%.00}
 echo "sample size is ${samplesize}"
 
@@ -38,7 +38,7 @@ echo "sample size is ${samplesize}"
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 
 #LD with different priors 
@@ -46,13 +46,13 @@ python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 #ld = 1065061/3000  = 355
 
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
---cf=/lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_coord_meta_CVD_CARDIOGRAM_UKBnosibsrels \
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
+--cf=/path/projects/UKB_LDpred/CVD/INPUT/LD_pred_coord_meta_CVD_CARDIOGRAM_UKBnosibsrels \
 --ldr=355 \
---ldf=/lustre5/0/geighei/projects/UKB_LDpred/CVD/OUTPUT/ukb_snp_ld_meta_CVD_CARDIOGRAM_UKBnosibsrels \
+--ldf=/path/projects/UKB_LDpred/CVD/OUTPUT/ukb_snp_ld_meta_CVD_CARDIOGRAM_UKBnosibsrels \
 --N=${samplesize} \
 --f=1 \
---out=/lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels
+--out=/path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels
 
 echo "Script finished:"
 date

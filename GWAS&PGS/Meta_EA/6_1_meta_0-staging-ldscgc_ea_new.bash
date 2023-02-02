@@ -7,11 +7,11 @@ echo "Script executed:"
 date
 echo
 
-cd /projects/0/geighei/projects/EA_METAL/OUTPUT
+cd path/projects/EA_METAL/OUTPUT
 
-/lustre5/0/geighei/tools/metal/generic-metal/metal << EOF
+path/tools/metal/generic-metal/metal << EOF
 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
 
 #1cptid          2rsID           3CHR    4POS        5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8MAC    9BETA           10SE            11PVAL          12Z                  13INFO          14N     15N_eff
 #10:100000625    rs7899632       10      100000625       A             G               0.566952        337300  0.00886916      0.0112481       0.430401        0.78850294716441     0.999653        389419  389216
@@ -50,7 +50,7 @@ LABEL EAF as EAF
 # ^ doesn' work: rounds as if integers
 
 ##Specify cohort files as input
-PROCESS /lustre5/0/geighei/projects/UKB_QC/OUTPUT/UKB/EA_new/CLEANED.ukb_ea_new_fastgwa_mlm_excl_sibs_sibrels_resid_qc.fastGWA.gz
+PROCESS path/projects/UKB_QC/OUTPUT/UKB/EA_new/CLEANED.ukb_ea_new_fastgwa_mlm_excl_sibs_sibrels_resid_qc.fastGWA.gz
 OUTFILE GWAS_UKBnosibsrels_ea_new_ldscGC .tbl
 ANALYZE
 

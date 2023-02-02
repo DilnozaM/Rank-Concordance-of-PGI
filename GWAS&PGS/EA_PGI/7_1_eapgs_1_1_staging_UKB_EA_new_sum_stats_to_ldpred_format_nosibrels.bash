@@ -9,7 +9,7 @@ echo "EA NEW"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/EA_new/CODE
+cd path/projects/UKB_LDpred/EA_new/CODE
 
 #load python
 module load 2019 
@@ -26,14 +26,14 @@ pip install --user h5py
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
+python path/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
 
 #Unzip the sumstats
-gunzip -c /lustre5/0/geighei/projects/UKB_QC/OUTPUT/UKB/EA_new/CLEANED.ukb_ea_new_fastgwa_mlm_excl_sibs_sibrels_resid_qc.fastGWA.gz > /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
+gunzip -c path/projects/UKB_QC/OUTPUT/UKB/EA_new/CLEANED.ukb_ea_new_fastgwa_mlm_excl_sibs_sibrels_resid_qc.fastGWA.gz > path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
 
 
 #Organize sum stats 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt
 
 #1cptid          2rsID           3CHR    4POS        5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8MAC    9BETA           10SE            11PVAL          12Z                  13INFO          14N     15N_eff
 #10:100000625    rs7899632       10      100000625       A             G               0.566952        337300  0.00886916      0.0112481       0.430401        0.78850294716441     0.999653        389419  389216
@@ -68,13 +68,13 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans
 #effalt = $9
 awk -F" " 'BEGIN{OFS="\t"; print "chr", "pos", "ref", "alt", "reffrq", "info", "rs", "pval", "effalt"} 
                  {if(NR>1) {print "chr"$3, $4, $5, $6, $7, $13, $2, $11, $9}}' OFS="\t" \
-                  /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt > /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt
+                  path/projects/UKB_LDpred/EA_new/INPUT/CLEANED_UKB_EA_new_sans_sibs_plus_rels_fastgwa.txt > path/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt
 
 
 #Formula for beta=z-score/sqrt(N*2*MAF*(1-MAF))
 
 echo "head sum stats"
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt
 #chr	pos	       ref	alt	reffrq	        info	        rs	        pval	        effalt
 #chr10	100000625	A	G	0.566952	0.999653	rs7899632	0.430401	0.00886916
 #chr10	100000645	A	C	0.794671	0.999278	rs61875309	0.318632	-0.0137707
@@ -87,7 +87,7 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_pl
 #chr10	10000360	G	A	0.998052	0.811555	rs7919605	0.777439	-0.0396874
 
 echo "tail sum stats"
-tail /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt	  
+tail path/projects/UKB_LDpred/EA_new/INPUT/UKB_EA_new_sans_sibs_plus_rels_fastgwa_ldpred_format.txt	  
 #chr9	99997049	A	G	0.451369	0.999621	rs10817273	0.0483705	-0.022139
 #chr9	99997596	G	A	0.997251	0.998527	rs41405653	0.647308	0.0487821
 #chr9	99997707	C	T	0.546441	0.99982	        rs11794422	0.0301215	-0.0242959

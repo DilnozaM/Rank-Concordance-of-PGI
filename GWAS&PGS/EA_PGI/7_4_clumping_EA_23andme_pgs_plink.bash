@@ -11,7 +11,7 @@ echo "Script started"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Code
+cd path/projects/UKB_PGS_plink/EA/Code
 
 #load plink
 module load 2019 
@@ -21,7 +21,7 @@ module load Python/3.6.6-foss-2018b
 # Identifying the columns to include into the construction of the ldpred score 
 # Need to choose for the score flag later: marker name, reference allele, weight (gwas beta or ld) (Source: Mills et al, 2020)
 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt
+head path/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt
 
 
 #1cptid	        2rsID	        3CHR	4POS	  5EFFECT_ALLEL 6OTHER_ALLELE	7EAF	8BETA	        9SE	        10PVAL	        11Z	                12N	13INFO	14BETA_stand	        15SE_stand
@@ -38,28 +38,28 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpin
 
 #Clump the scores using the PRcise default thresholds 
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --clump /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt \
+      --bfile path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --clump path/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt \
       --clump-p1 1 \
       --clump-kb 250 \
       --clump-r2 0.10 \
       --clump-p2 1 \
       --clump-snp-field rsID \
       --clump-field PVAL \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme
+      --out path/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme
 
 
 #Now make a list of the clumped SNPs
-head /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme.clumped
+head path/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme.clumped
 
 
-awk '{ print $3 }' /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme.clumped > /lustre5/0/geighei/projects/UKB_PGS_plink/Output/EA_list_clumped_SNPs_23andme.txt
+awk '{ print $3 }' path/projects/UKB_PGS_plink/EA/Output/EA_clumped_23andme.clumped > path/projects/UKB_PGS_plink/Output/EA_list_clumped_SNPs_23andme.txt
 
 #Remove the column name "SNP"
-sed -i '1d' /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt
+sed -i '1d' path/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt
 
 #count the number of SNPs included
-grep -c rs /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt
+grep -c rs path/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt
 #109263 
 #Is this a normal thing? NB: the job was killed, see the log file in output folder
 
@@ -68,10 +68,10 @@ grep -c rs /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_S
 
 
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --extract /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt \
-      --score /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt header sum 2 5 8 \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/EA/Output/PGS_plink_EA_23andme_clumped
+      --bfile path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --extract path/projects/UKB_PGS_plink/EA/Output/EA_list_clumped_SNPs_23andme.txt \
+      --score path/projects/UKB_LDpred/EA/INPUT/CLEANED_23andme_EA_allsnpinfo_allstat_noflips.txt header sum 2 5 8 \
+      --out path/projects/UKB_PGS_plink/EA/Output/PGS_plink_EA_23andme_clumped
 
 PGS_plink_EA_23andme_ukb_nosibssibrels_clumped
 

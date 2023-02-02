@@ -12,7 +12,7 @@ echo "Script started"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/EA/CODE
+cd path/projects/UKB_LDpred/EA/CODE
 
 #load plink
 module load 2019 
@@ -28,7 +28,7 @@ pip install --user h5py
 # Identifying the columns to include into the construction of the ldpred score 
 # Need to choose for the score flag later: marker name, reference allele, LDweight (Source: Mills et al, 2020)
 
-head /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/LD_pred_w_EA_23andme_LDpred_p1.0000e+00.txt
+head path/projects/UKB_LDpred/EA/INPUT/LD_pred_w_EA_23andme_LDpred_p1.0000e+00.txt
 
 #1chrom     2pos      3sid         4nt1 5nt2 6raw_beta     7ldpred_beta
 #chrom_1    838555    rs4970383    A    C    3.9548e-04    3.6977e-05
@@ -44,9 +44,9 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/LD_pred_w_EA_23andme_LDpred
  
 #construct scores using plink , prior of 1
 /projects/0/geighei/tools/plink/plink \
---bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
---score /lustre5/0/geighei/projects/UKB_LDpred/EA/INPUT/LD_pred_w_EA_23andme_LDpred_p1.0000e+00.txt header sum 3 4 7 \
---out /lustre5/0/geighei/projects/UKB_LDpred/EA/OUTPUT/PGS_ldpred_EA_23andme_p1
+--bfile path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+--score path/projects/UKB_LDpred/EA/INPUT/LD_pred_w_EA_23andme_LDpred_p1.0000e+00.txt header sum 3 4 7 \
+--out path/projects/UKB_LDpred/EA/OUTPUT/PGS_ldpred_EA_23andme_p1
 
 
 echo "Script finished"

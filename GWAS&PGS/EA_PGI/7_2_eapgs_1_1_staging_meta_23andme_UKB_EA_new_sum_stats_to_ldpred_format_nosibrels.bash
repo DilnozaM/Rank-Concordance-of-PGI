@@ -9,7 +9,7 @@ echo "EA NEW"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/EA_new/CODE
+cd path/projects/UKB_LDpred/EA_new/CODE
 
 #load python
 module load 2019 
@@ -26,11 +26,11 @@ pip install --user h5py
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
+python path/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
 
 
 #Organize sum stats 
-head /lustre5/0/geighei/projects/EA_METAL/OUTPUT/GWAS_ea_new_meta_23andme_UKB_UKBnosibsrels.txt
+head path/projects/EA_METAL/OUTPUT/GWAS_ea_new_meta_23andme_UKB_UKBnosibsrels.txt
 
 #1CHR    2POS            3rsid       4EFFECT_ALLELE   5OTHER_ALLELE    6EAF    7EAF_SE 8MIN_EAF   9MAX_EAF 10N             11Z     12P-value 13Direction     14HetISq  15HetChiSq    16HetDf 17HetPVal
 #6       130840091       rs2326918       a                 g           0.8446  0.0016  0.8429     0.8462   754955.00       0.171   0.8641    +-                0.0       0.512         1       0.4744
@@ -65,13 +65,13 @@ head /lustre5/0/geighei/projects/EA_METAL/OUTPUT/GWAS_ea_new_meta_23andme_UKB_UK
 #effalt = 1*($11/sqrt($10*2*$6*(1-$6)))
 awk -F" " 'BEGIN{OFS="\t"; print "chr", "pos", "ref", "alt", "reffrq", "info", "rs", "pval", "effalt"} 
                  {if(NR>1) {print "chr"$1, $2, $4, $5, $6, "NaN", $3, $12, 1*($11/sqrt($10*2*$6*(1-$6)))}}' OFS="\t" \
-                  /lustre5/0/geighei/projects/EA_METAL/OUTPUT/GWAS_ea_new_meta_23andme_UKB_UKBnosibsrels.txt > /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt
+                  path/projects/EA_METAL/OUTPUT/GWAS_ea_new_meta_23andme_UKB_UKBnosibsrels.txt > path/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt
 
 
 #Formula for beta=z-score/sqrt(N*2*MAF*(1-MAF))
 
 echo "head sum stats"
-head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt
+head path/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt
 #chr	pos	        ref	alt	reffrq	info	rs	        pval	effalt
 #chr6	130840091	a	g	0.8446	NaN	rs2326918	0.8641	0.000384122
 #chr3	104998275	a	c	0.9948	NaN	rs112634005	0.7141	-0.00576618
@@ -84,7 +84,7 @@ head /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB
 #chr7	145771806	t	c	0.8524	NaN	rs6977693	0.4796	-0.00162211
 
 echo "tail sum stats"
-tail /lustre5/0/geighei/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt	  
+tail path/projects/UKB_LDpred/EA_new/INPUT/EA_new_meta_23andme_UKB_sanssibsplusrels_fastgwa_ldpred_format.txt	  
 #chr7	107988681	a	t	0.5143	NaN	rs117878361	0.1439	0.00237893
 #chr15	50176748	a	g	0.9911	NaN	rs569284138	0.9739	-0.000398141
 #chr5	37232736	a	c	0.5155	NaN	rs113147370	0.7278	-0.000566686

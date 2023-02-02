@@ -26,14 +26,14 @@ pip install --user h5py
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
 
 #Unzip the sumstats
-gunzip -c /lustre5/0/geighei/projects/UKB_QC/OUTPUT/UKB/CVD/CLEANED.ukb_CVD_fastgwa_mlm_excl_sibs_sibrels_resid.fastGWA.gz > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt
+gunzip -c /path/projects/UKB_QC/OUTPUT/UKB/CVD/CLEANED.ukb_CVD_fastgwa_mlm_excl_sibs_sibrels_resid.fastGWA.gz > /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt
 
 
 #Organize sum stats 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt
 
 #1cptid          2rsID           3CHR    4POS       5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8MAC    9BETA           10SE            11PVAL          12Z                  13INFO          14N     15N_eff
 #10:100000625    rs7899632       10      100000625       A                G           0.566892        340200  0.000755262     0.000587308     0.198453        1.28597260721802     0.999655        392771  393209
@@ -68,11 +68,11 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_ml
 #effalt = $9
 awk -F" " 'BEGIN{OFS="\t"; print "chr", "pos", "ref", "alt", "reffrq", "info", "rs", "pval", "effalt"} 
                  {if(NR>1) {print "chr"$3, $4, $5, $6, $7, $13, $2, $11, $9}}' OFS="\t" \
-                  /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt
+                  /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_ukb_CVD_fastgwa_mlm_excl_sibs_sibrels.txt > /path/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt
 
 
 echo "head sum stats"
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt
 #chr	pos	       ref	alt	reffrq	        info	        rs	        pval	        effalt
 #chr10	100000625	A	G	0.566892	0.999655	rs7899632	0.198453	0.000755262
 #chr10	100000645	A	C	0.794658	0.999276	rs61875309	0.64506	        -0.000332086
@@ -86,7 +86,7 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels
 
 
 echo "tail sum stats"
-tail /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt	  
+tail /path/projects/UKB_LDpred/CVD/INPUT/GWAS_ukb_CVD_UKBnosibsrels_ldpred_format.txt	  
 #chr9	99997049	A	G	0.451309	0.999623	rs10817273	0.330735	0.000569508
 #chr9	99997596	G	A	0.997237	0.998489	rs41405653	0.230268	0.00666147
 #chr9	99997707	C	T	0.546361	0.999818	rs11794422	0.629353	0.000282332

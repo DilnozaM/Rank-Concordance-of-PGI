@@ -9,7 +9,7 @@ echo "CVD CARDIOGRAM"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/CVD/CODE
+cd /path/projects/UKB_LDpred/CVD/CODE
 
 #load python
 module load 2019 
@@ -26,14 +26,14 @@ pip install --user h5py
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py coord --help
 
 #Unzip the sumstats
-gunzip -c /lustre5/0/geighei/projects/CVD/1_QC/CARDIOGRAM/OUTPUT/CVD/CLEANED.cad.add.160614.website.gz > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt
+gunzip -c /path/projects/CVD/1_QC/CARDIOGRAM/OUTPUT/CVD/CLEANED.cad.add.160614.website.gz > /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt
  
 
 #Organize sum stats 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt
 
 #1cptid          2rsID           3CHR    4POS       5EFFECT_ALLELE   6OTHER_ALLELE    7EAF            8BETA           9SE             10PVAL          11Z                 12INFO
 #10:100000625    rs7899632       10      100000625       A                G           0.549923        0.03424         0.0091953       0.0001964       3.72364142551086    0.9995
@@ -68,11 +68,11 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sum
 #effalt = $8
 awk -F" " 'BEGIN{OFS="\t"; print "chr", "pos", "ref", "alt", "reffrq", "info", "rs", "pval", "effalt"} 
                  {if(NR>1) {print "chr"$3, $4, $5, $6, $7, $12, $2, $10, $8}}' OFS="\t" \
-                  /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt > /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt
+                  /path/projects/UKB_LDpred/CVD/INPUT/CLEANED_cardiogram_CVD_sumstats.txt > /path/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt
 
 
 echo "head sum stats"
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt
 #chr	pos	ref	alt	reffrq	info	rs	pval	effalt
 #chr10	100000625	A	G	0.549923	0.9995	rs7899632	0.0001964	0.03424
 #chr10	100000645	A	C	0.818372	0.99812	rs61875309	0.1106876	-0.019443
@@ -85,7 +85,7 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred
 #chr10	100005282	C	T	0.550158	0.99946	rs10786405	0.0001537	0.034821
 
 echo "tail sum stats"
-tail /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt	  
+tail /path/projects/UKB_LDpred/CVD/INPUT/GWAS_cardiogram_CVD_ldpred_format.txt	  
 #chr9	99992137	A	G	0.463459	0.96843	rs10759526	0.064501	0.017871
 #chr9	99992220	T	C	0.547838	0.98194	rs10817265	0.302058	0.009917
 #chr9	99992496	T	A	0.267634	0.97741	rs7047367	0.1609803	0.01578

@@ -13,7 +13,7 @@ echo "CVD UKBnosibrels"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/CVD/CODE
+cd /path/projects/UKB_LDpred/CVD/CODE
 
 #load python
 module load 2019 
@@ -30,7 +30,7 @@ pip install --user h5py
 # Need to choose for the score flag later: marker name, reference allele, LDweight (Source: Mills et al, 2020)
 
 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_ukb_CVD_UKBnosibsrels_LDpred_p1.0000e+00.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_ukb_CVD_UKBnosibsrels_LDpred_p1.0000e+00.txt
 
 #1chrom     2pos      3sid         4nt1 5nt2  6raw_beta      7ldpred_beta
 #chrom_1    754182    rs3131969    A    G    -2.0072e-04    -5.9824e-06
@@ -47,9 +47,9 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_ukb_CVD_UKBnosib
  
 #construct scores using plink , prior of 1
 /projects/0/geighei/tools/plink/plink \
---bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
---score /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_ukb_CVD_UKBnosibsrels_LDpred_p1.0000e+00.txt header sum 3 4 7 \
---out /lustre5/0/geighei/projects/UKB_LDpred/CVD/OUTPUT/PGS_ldpred_ukb_CVD_UKBnosibsrels
+--bfile /path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+--score /path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_ukb_CVD_UKBnosibsrels_LDpred_p1.0000e+00.txt header sum 3 4 7 \
+--out /path/projects/UKB_LDpred/CVD/OUTPUT/PGS_ldpred_ukb_CVD_UKBnosibsrels
 
 
 echo "Script finished"

@@ -7,9 +7,9 @@ echo "Script executed:"
 date
 echo
 
-cd /lustre5/0/geighei/projects/CVD/3_METAL/OUTPUT
+cd path/projects/CVD/3_METAL/OUTPUT
 
-/lustre5/0/geighei/tools/metal/generic-metal/metal << EOF
+path/tools/metal/generic-metal/metal << EOF
 
 
 ##General parameters
@@ -26,7 +26,7 @@ FREQLABEL EAF
 AVERAGEFREQ ON
 MINMAXFREQ ON
 GENOMICCONTROL OFF
-PROCESS /lustre5/0/geighei/projects/CVD/3_METAL/INPUT/GWAS_CAD_UKBnosibsrels_ldscGC.txt
+PROCESS path/projects/CVD/3_METAL/INPUT/GWAS_CAD_UKBnosibsrels_ldscGC.txt
 
 ##Specify cohort files as input
 SEPARATOR TAB
@@ -43,7 +43,7 @@ FREQLABEL EAF
 AVERAGEFREQ ON
 MINMAXFREQ ON
 GENOMICCONTROL OFF
-PROCESS /lustre5/0/geighei/projects/CVD/3_METAL/INPUT/CLEANED.cad.add.160614.website.N.txt.gz
+PROCESS path/projects/CVD/3_METAL/INPUT/CLEANED.cad.add.160614.website.N.txt.gz
 
 ##Specify output file
 OUTFILE GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels .tbl

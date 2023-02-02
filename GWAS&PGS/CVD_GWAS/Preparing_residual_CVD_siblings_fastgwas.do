@@ -10,28 +10,28 @@ set more off
 ********************************************************************************
 
 * Loading full phenotype data 
-cd "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\"
-use "Birth rank & Genes\Analysis\Input\ExtractedData.dta"
+cd "path"
+use "Analysis\Input\ExtractedData.dta"
 
 
 //Withdrew consent 
-merge 1:1 ID using "Birth rank & Genes\Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
+merge 1:1 ID using "Analysis\Input\w41382_20200820_withdrew_consent.dta", gen(_mergeconsent)
 drop if _mergeconsent==3 // unconsented 
 drop if _mergeconsent==2 // from using 
 *(98 observations deleted)
 drop _mergeconsent
 
-merge 1:1 ID using "BirthControl_Pill_Genes\Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(_mergeconsent1)
+merge 1:1 ID using "Analysis\Input\w41382_20210201_withdrew_consent.dta", gen(_mergeconsent1)
 drop if _mergeconsent1==3 // unconsented 0 deleted
 drop if _mergeconsent1==2 // from using 103 obs deleted 
 drop _mergeconsent1
 
-merge 1:1 ID using "BirthControl_Pill_Genes\Analysis\Input\w41382_20210809_withdrew_consent.dta", gen(_mergeconsent2)
+merge 1:1 ID using "Analysis\Input\w41382_20210809_withdrew_consent.dta", gen(_mergeconsent2)
 drop if _mergeconsent2==3 // unconsented 29 obs deleted from master 
 drop if _mergeconsent2==2 // from using 103 obs deleted 
 drop _mergeconsent2
 
-merge 1:1 ID using "BirthControl_Pill_Genes\Analysis\Input\w41382_20220222_withdrew_consent.dta", gen(_mergeconsent3)
+merge 1:1 ID using "Analysis\Input\w41382_20220222_withdrew_consent.dta", gen(_mergeconsent3)
 drop if _mergeconsent3==3 // unconsented 47 deleted
 drop if _mergeconsent3==2 // from using 131 deleted 
 drop _mergeconsent3
@@ -42,7 +42,7 @@ count // 502,412
 * gen IHD_icd = 1 if IHD_main ==1 | IHD_second ==1 | IHD9_main ==1 | IHD9_second ==1 | h_IHD_CoD ==1 | h_IHD_secCoD == 1 & h_NoInpatientData !=1
 	*replace IHD_icd = 0 if IHD_icd !=1
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\IHD_icd_phenotype.dta", gen(_cvd)	
+merge 1:1 ID using "Analysis\Input\IHD_icd_phenotype.dta", gen(_cvd)	
 keep if _cvd==3
 
 sum IHD_icd
@@ -50,7 +50,7 @@ sum IHD_icd
 keep ID IHD_icd sex
 
 * Merging with the relatedness file 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta"
+merge 1:1 ID using "Siblings\Output\Relatedness_to_siblings_UKB.dta"
 
 /*
     Result                      Number of obs
@@ -82,7 +82,7 @@ keep if relationship==1
 tab relationship 
 
 * Recoding the phenotype for the list with bad qc: see do-file do_file_select_sample_qc.do 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
+merge 1:1 ID using "Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
 
 /*
 
@@ -108,23 +108,16 @@ count
 keep ID IHD_icd 
 
 * Saving the dta file 
-save "GEIGHEI\projects\PGS ranking\Analysis\Output\UKB_CVD_pheno_qc_sibs.dta", replace 
+save "PGS ranking\Analysis\Output\UKB_CVD_pheno_qc_sibs.dta", replace 
 
 ********************************************************************************
 *** RESIDUALIZED PHENOTYPE 
 ********************************************************************************
 *** Start here with the split sample scores for gwas 
 clear all 
-use "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\quality_control_stata_v2.dta", clear
+use "Analysis\Input\quality_control_stata_v2.dta", clear
 
-/* Check if the right qc file, should start with sample_0
- ID	id_ukb
-3091360	sample_0
-2546549	sample_1
-
-*/
-
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\Birth rank & Genes\Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
+merge 1:1 ID using "Analysis\Input\PGSs_PCs_Ancestry.dta", gen(_mergePC)
 /*
 
  Result                           # of obs.
@@ -137,7 +130,7 @@ merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\B
     -----------------------------------------
 */
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Output\UKB_CVD_pheno_qc_sibs.dta", gen(_mergeCVD)
+merge 1:1 ID using "Analysis\Output\UKB_CVD_pheno_qc_sibs.dta", gen(_mergeCVD)
 /*
     Result                      Number of obs
     -----------------------------------------
@@ -162,7 +155,7 @@ tab batch, gen(batch_)
 
 * Select one random member from the sib pair 
 * add famid variable 
-merge 1:1 ID using "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\GEIGHEI\projects\Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_merge2)
+merge 1:1 ID using "Siblings\Output\Relatedness_to_siblings_UKB.dta", gen(_merge2)
 
 keep if _merge2==3
 egen N_famid=count(famid), by(famid)
@@ -186,9 +179,9 @@ drop if cvd_resid_1==.
 count 
 *18,965
 
-export delimited id_ukb id_ukb using "GEIGHEI\projects\PGS ranking\Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames
+export delimited id_ukb id_ukb using "PGS ranking\Analysis\Output\UKB_list_sib.txt", delimiter(tab) replace novarnames
 
-export delimited ID ID cvd_resid_1 using "GEIGHEI\projects\PGS ranking\Analysis\Output\UKB_cvd_resid_pheno_onesib.txt", delimiter(tab) replace novarnames
+export delimited ID ID cvd_resid_1 using "PGS ranking\Analysis\Output\UKB_cvd_resid_pheno_onesib.txt", delimiter(tab) replace novarnames
 
 * GWAS covariates should be i.birthyear, sex, i.birthyear*sex, i.Batch, pc1-40
 * qcovar file should contain all continuous variables

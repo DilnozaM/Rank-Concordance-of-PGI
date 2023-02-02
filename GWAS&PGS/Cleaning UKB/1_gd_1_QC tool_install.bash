@@ -2,7 +2,7 @@
 #1_QC_tool_install
 
 #cd to tools
-cd /lustre5/0/geighei/tools
+cd /path
 
 #make a directory for qc tools
 mkdir qctool

@@ -12,7 +12,7 @@ echo "Script started"
 date 
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/CODE
+cd /path/projects/UKB_PGS_plink/CVD/CODE
 
 #load plink 
 module load 2019 
@@ -20,7 +20,7 @@ module load Python/3.6.6-foss-2018b
 
 
 # Identifying the columns to include into the construction of the plink score 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt
 
 #1CHR    2POS            3rsid      4EFFECT_ALLELE   5OTHER_ALLELE    6EAF    7EAF_SE 8MIN_EAF 9MAX_EAF 10N             11Z     12P-value 13Direction     14HetISq  15HetChiSq      16HetDf 17HetPVal
 #6       130840091       rs2326918       a                g           0.8457  0.0011  0.8433   0.8462   474257.00       0.103   0.918     -+              14.2      1.166           1       0.2802
@@ -36,28 +36,28 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_U
 
 #Clump the scores using the PRcise default thresholds 
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --clump /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt \
+      --bfile /path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --clump /path/projects/UKB_LDpred/CVD/INPUT/GWAS_meta_CVD_CARDIOGRAM_UKBnosibsrels.txt \
       --clump-p1 1 \
       --clump-kb 250 \
       --clump-r2 0.10 \
       --clump-p2 1 \
       --clump-snp-field rsid \
       --clump-field P-value \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram
+      --out /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram
 
 
 #Now make a list of the clumped SNPs
-head /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram.clumped
+head /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram.clumped
 
 
-awk '{ print $3 }' /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram.clumped > /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
+awk '{ print $3 }' /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_clumped_meta_ukb_cardiogram.clumped > /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
 
 #Remove the column name "SNP"
-sed -i '1d' /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
+sed -i '1d' /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
 
 #count the number of SNPs included
-grep -c rs  /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
+grep -c rs  /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt
 #112892 
 
 #construct the pgs after removing the snps in the same region; 
@@ -65,7 +65,7 @@ grep -c rs  /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumpe
 #using the ld_weight files since beta are already calculated there, otherwise use the same sumstats as in clumping 
 
 
-head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels_LDpred_p1.0000e+00.txt
+head /path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels_LDpred_p1.0000e+00.txt
 
 #1chrom     2pos      3sid         4nt1 5nt2  6raw_beta      7ldpred_beta
 #chrom_1    754182    rs3131969    A    G    -2.0072e-04    -5.9824e-06
@@ -79,10 +79,10 @@ head /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOG
 #chrom_1    873558    rs1110052    G    T    -2.3635e-03    -5.3769e-05
  
 /projects/0/geighei/tools/plink/plink \
-      --bfile /lustre5/0/geighei/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
-      --extract /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt \
-      --score /lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels_LDpred_p1.0000e+00.txt header sum 3 4 6 \
-      --out /lustre5/0/geighei/projects/UKB_PGS_plink/CVD/OUTPUT/PGS_plink_cvd_meta_ukb_cardiogram_clumped
+      --bfile /path/data/UKB/bed/6_bed_merged_snp_qc_sqc_all/ukb_hm3_snp_sqc_consent_allchr \
+      --extract /path/projects/UKB_PGS_plink/CVD/OUTPUT/cvd_list_clumped_SNPs_meta_ukb_cardiogram.txt \
+      --score /path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_meta_CVD_CARDIOGRAM_UKBnosibsrels_LDpred_p1.0000e+00.txt header sum 3 4 6 \
+      --out /path/projects/UKB_PGS_plink/CVD/OUTPUT/PGS_plink_cvd_meta_ukb_cardiogram_clumped
 
 echo "Script finished"
 date 

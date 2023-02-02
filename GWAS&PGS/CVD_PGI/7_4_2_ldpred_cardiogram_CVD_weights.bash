@@ -13,7 +13,7 @@ echo "CVD Cardiogram"
 date
 
 #change to the right directory
-cd /lustre5/0/geighei/projects/UKB_LDpred/CVD/CODE
+cd /path/projects/UKB_LDpred/CVD/CODE
 
 #load python
 module load 2019 
@@ -38,7 +38,7 @@ echo "sample size is ${samplesize}"
 
 #check if ldpred is working
 echo "version 1.06"
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 
 #LD with different priors 
@@ -46,13 +46,13 @@ python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs --help
 
 #ld = 1062641/3000  = 354
 
-python /lustre5/0/geighei/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
---cf=/lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_coord_cardiogram_CVD \
+python /path/tools/ldpred/ldpred-1.0.6/LDpred.py gibbs \
+--cf=/path/projects/UKB_LDpred/CVD/INPUT/LD_pred_coord_cardiogram_CVD \
 --ldr=354 \
---ldf=/lustre5/0/geighei/projects/UKB_LDpred/CVD/OUTPUT/CVD_cardiogram_snp_ld \
+--ldf=/path/projects/UKB_LDpred/CVD/OUTPUT/CVD_cardiogram_snp_ld \
 --N=${samplesize} \
 --f=1 \
---out=/lustre5/0/geighei/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_cardiogram_CVD
+--out=/path/projects/UKB_LDpred/CVD/INPUT/LD_pred_w_cardiogram_CVD
 
 echo "Script finished:"
 date
