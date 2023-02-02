@@ -7,8 +7,8 @@
 clear all
 
 //original HRS data
-global Data "D:\PhD\PhD\Projects\Projects\Ranking\data_analysis\Data"
-global graphs "D:\PhD\PhD\Projects\Projects\Ranking\data_analysis\graphs"
-global tables "D:\PhD\PhD\Projects\Projects\Ranking\data_analysis\tables"
+global Data "path\Ranking\data_analysis\Data"
+global graphs "path\Ranking\data_analysis\graphs"
+global tables "path\Ranking\data_analysis\tables"
 
 
