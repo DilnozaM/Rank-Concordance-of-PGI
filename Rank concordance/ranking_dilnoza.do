@@ -1,25 +1,17 @@
-if c(username)=="68484dmu" {
-	cd "C:\Users\68484dmu\Dropbox (Erasmus Universiteit Rotterdam)\"
-}
-else {
-	*cd "C:\Users\Hans\Dropbox (Erasmus Universiteit Rotterdam)\"
-	*cd "C:\Users\Niels\Dropbox (Erasmus Universiteit Rotterdam)\"
-	*cd "C:\Users\ecsmvhkv\Dropbox\"
-	*cd "C:\Users\Fleur\Dropbox\"
-}
+cd "path"
 
 *net install wrap, from("https://aarondwolf.github.io/wrap")
 *ssc install splitvallabels
 ******************************* Data preparation *******************************
 clear all
-use "GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd_bmi.dta"
+use "\PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd_bmi.dta"
 
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\quality_control_stata_v2.dta", gen(_batch)
+merge 1:1 ID using "\PGS ranking\Analysis\Input\quality_control_stata_v2.dta", gen(_batch)
 keep if _batch==3
 
 
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
+merge 1:1 ID using "\PGS ranking\Analysis\Input\list_samples_qc_UKBB_v2.dta", generate(_merge1)
 * Those dropped are with bad qc and non-europeans 
 drop if _merge1==3
 *(53,294 real changes made) not all with bad qc have info on education 
@@ -29,7 +21,7 @@ drop if _merge1==2
 drop if famid==.
 count 
 * 39,296
-merge 1:1 ID using "GEIGHEI\projects\PGS ranking\Analysis\Input\ExtractedData.dta", gen(_date)
+merge 1:1 ID using "\PGS ranking\Analysis\Input\ExtractedData.dta", gen(_date)
 keep if _date==3
 count 
 
@@ -237,7 +229,7 @@ twoway 	(line rank type if top20==1, lcolor(black) lwidth(vvthin) connect(ascend
 		legend(off) aspectratio(1)
 		
 * could add a threshold line 
-graph export "GEIGHEI\projects\PGS ranking\Analysis\Output\ea_statariver.png", ///
+graph export "\PGS ranking\Analysis\Output\ea_statariver.png", ///
              as(png) name("Graph") replace	
 			 
 drop rank* nID top20 drop quin			
@@ -404,7 +396,7 @@ twoway 	(line rank type if top20==1, lcolor(black) lwidth(vvthin) connect(ascend
 */
 		
 * could add a threshold line 
-graph export "GEIGHEI\projects\PGS ranking\Analysis\Output\cvd_statariver.png", ///
+graph export "\PGS ranking\Analysis\Output\cvd_statariver.png", ///
              as(png) name("Graph") replace	
 			 
 drop rank* nID top20 drop quin			
