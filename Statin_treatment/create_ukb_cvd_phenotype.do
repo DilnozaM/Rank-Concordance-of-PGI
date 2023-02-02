@@ -1,10 +1,10 @@
 clear all
 set maxvar 100000
 
-use "C:/Users/Fleur/Documents/UKB/Norface/ukb23283.dta"
+use "path/UKB/Norface/ukb23283.dta"
 
-merge 1:1 n_eid using "C:/Users/Fleur/Documents/UKB/Norface/ukb41222.dta", nogen
-merge 1:1 n_eid using "C:/Users/Fleur/Documents/UKB/Norface/ukb42349.dta", nogen
+merge 1:1 n_eid using "path/UKB/Norface/ukb41222.dta", nogen
+merge 1:1 n_eid using "path/UKB/Norface/ukb42349.dta", nogen
 
 
 	
@@ -320,15 +320,15 @@ save "C:/Users/Fleur/Documents/UKB/Norface/IHD_icd_phenotype.dta", replace
 ****************************************************************************************
 ****************************************************************************************
 
-use  "C:/Users/Fleur/Dropbox/Birth rank & Genes/Analysis/Input/quality_control_stata_v2.dta", clear
-merge 1:1 ID using "C:/Users/Fleur/Dropbox/Birth rank & Genes/Analysis/Input/quality_control_stata_v2.dta", gen(_merge4)
+use  "path/Analysis/Input/quality_control_stata_v2.dta", clear
+merge 1:1 ID using "path/Analysis/Input/quality_control_stata_v2.dta", gen(_merge4)
 
 
-merge 1:1 ID using "C:/Users/Fleur/Documents/UKB/Norface/IHD_icd_phenotype.dta", nogen
-merge 1:1 ID using "C:/Users/Fleur/Dropbox/GEIGHEI/projects/Siblings/Output/Relatedness_to_siblings_UKB.dta", gen(_merge3)
-merge 1:1 ID using "C:/Users/Fleur/Dropbox/Birth rank & Genes/Analysis/Input/PGSs_PCs_Ancestry.dta", generate(_merge2)
+merge 1:1 ID using "path/UKB/Norface/IHD_icd_phenotype.dta", nogen
+merge 1:1 ID using "path/Siblings/Output/Relatedness_to_siblings_UKB.dta", gen(_merge3)
+merge 1:1 ID using "path/Analysis/Input/PGSs_PCs_Ancestry.dta", generate(_merge2)
 keep if _merge2 == 3
-merge 1:1 ID using "C:/Users/Fleur/Dropbox/Birth rank & Genes/Analysis/Input/list_samples_qc_UKBB_v2.dta", generate(_merge1)
+merge 1:1 ID using "path/Analysis/Input/list_samples_qc_UKBB_v2.dta", generate(_merge1)
 drop if _merge1 == 3
 
 
@@ -352,7 +352,7 @@ predict  IHD_icd_resid, residuals
 *replace IHD_icd_resid=-9 if EA==-9
 drop if  IHD_icd_resid==.
 
-export delimited ID ID IHD_icd_resid using "C:/Users/Fleur/Dropbox/GEIGHEI/projects/PGS Ranking/Analysis/Input/UKB_IHDicd_resid_phenotype_excl_sibs_sibrels.txt", delimiter(tab) replace novarnames
+export delimited ID ID IHD_icd_resid using "path/PGS Ranking/Analysis/Input/UKB_IHDicd_resid_phenotype_excl_sibs_sibrels.txt", delimiter(tab) replace novarnames
 
 
 

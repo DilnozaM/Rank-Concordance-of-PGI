@@ -1,8 +1,8 @@
 clear all
 set maxvar 100000
 
-use "C:\Users\Fleur\Dropbox\GEIGHEI\projects\PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd.dta", clear
-merge 1:1 ID using "C:\Users\Fleur\Documents\UKB\Norface\UKB_smallset_CVD_inouye.dta",nogen
+use "path\PGS ranking\Analysis\Input\PGS_ldpred_plink_EA_height_cvd.dta", clear
+merge 1:1 ID using "path\UKB\Norface\UKB_smallset_CVD_inouye.dta",nogen
 
 global controls sex i.YoB e_PC*
 
